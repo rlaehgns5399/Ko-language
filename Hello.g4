@@ -7,12 +7,17 @@ program
 
 package_decl
 : 
-	'꾸러미' ident ('.' ident)*
+	'꾸러미' ident (dot ident)*
+;
+
+dot
+:
+	'.'
 ;
 
 import_decl 
 : 
-	'가져오기' ident ('.' (ident |'*'))*
+	'가져오기' ident (dot (ident |'*'))*
 ;
 
 interface_decl 
@@ -32,8 +37,9 @@ interface_method
 
 class_decl 
 : 
-	'#' '['ident(']은'|']는'|']') extend? implement? class_compound
+	POUND '['ident(']은'|']는'|']') extend? implement? class_compound
 ;
+
 
 extend
 :  
@@ -42,7 +48,7 @@ extend
 
 implement
 : 
-	'[' ident (',' ident)* (']을' | ']를') '구현'
+	'[' ident (comma ident)* (']을' | ']를') '구현'
 ;
 
 class_compound 
@@ -57,7 +63,13 @@ class_static_field
 
 class_field 
 : 
-	'|' class_field_decl (',' class_field_decl)* '|'
+	'|' class_field_decl (comma class_field_decl)* '|'
+;
+
+
+comma
+:
+	','
 ;
 
 class_field_decl
@@ -72,7 +84,12 @@ class_method
 
 params 
 : 
-	param (',' param)*
+	param (comma param)*
+;
+
+param 
+: 
+	ident
 ;
 
 compound 
@@ -82,12 +99,12 @@ compound
 
 stmt 
 : 	if_stmt 
+	| method_call
 	| while_stmt 
-	| assignment_stmt 
-	| return_stmt 
-	| method_call 
+	| return_stmt
 	| continue_stmt 
 	| break_stmt 
+	| assignment_stmt 
 ;
 
 if_stmt 
@@ -116,20 +133,31 @@ while_stmt
 : 
 	if_condition '계속' compound '을 반복' 
 ;
+return_symbol
+:
+	RETURN
+;
 
-expression 
+return_stmt 
 : 
-	(num | ident)
+	expression return_symbol
+	| return_symbol
+; 
+expression 
+:   
+	
+	expression '(' args? ')' 
+	| '(' expression ')'
+	| classSymbol
 	| boolean_literal
-	| super_prefix
-  	| this_prefix
 	| expression op expression 
 	| prefixUnaryOP expression
   	| expression postfixUnaryOP
 	| expression '[' expression ']'
 	| '[' expression ']'
-	| expression '.' expression
-	| expression '(' args? ')' 
+	| expression dot expression
+	| STR
+	| (ident | num)
 ;
 
 num
@@ -142,19 +170,14 @@ ident
 	IDENT
 ;
 
-super_prefix
+classSymbol
 :
-  PARENT
+   POUND '[' IDENT ']' ('(' args? ')')?
 ;
 
-this_prefix
-:
-  THIS
-;
-		
 assignment_stmt 
 : 
-	expression assign_symbol expression 
+	expression assign_symbol expression
 	| expression
 ;
 
@@ -162,25 +185,14 @@ assign_symbol
 :
 	'<-'
 ;
-				  
-return_stmt 
-: 
-	expression return_symbol 
-	| return_symbol 
-; 
-
-return_symbol
-:
-	RETURN
-;
-
+				 
 method_call 
 : 
 	expression '(' args? ')' 
 ;
 
 args 
-	: expression(',' expression)*
+	: expression(comma expression)*
 ;
 
 continue_stmt 
@@ -191,11 +203,6 @@ continue_stmt
 break_stmt 
 : 
 	BREAK 
-;
-
-param 
-: 
-	IDENT
 ;
 
 boolean_literal 
@@ -213,29 +220,25 @@ IDENT
 	[a-zA-Z가-힣_]([a-zA-Z가-힣_] | [0-9])*
 ;
 
-PARENT
+POUND
 :
-  '부모'
+	'#'
 ;
 
-THIS 
-: 
-  '자신'
-;
 
 RETURN
 : 
-	'내보내기'
+	'!내보내기'
 ;
 
 CONTINUE
 : 
-	'다시 위로'
+	'!다시 위로'
 ;
 
 BREAK
 : 
-	'나가기'
+	'!나가기'
 ;
 
 op : '+' | '-' | '*' | '/' | '%' | '=' | '<' | '>' | '>=' | '<=' | '그리고' | '또는' | '!=' ;
@@ -254,6 +257,8 @@ postfixUnaryOP
   '++' 
   | '--'
 ;
-
+STR
+:
+	'"' ( ~('"') )* '"'
+;
 WS  :   (' ' | '\t' | '\r' | '\n')+ -> channel(HIDDEN);
- 

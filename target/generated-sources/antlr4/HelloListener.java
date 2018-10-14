@@ -28,6 +28,16 @@ public interface HelloListener extends ParseTreeListener {
 	 */
 	void exitImport_decl(@NotNull HelloParser.Import_declContext ctx);
 	/**
+	 * Enter a parse tree produced by {@link HelloParser#ident}.
+	 * @param ctx the parse tree
+	 */
+	void enterIdent(@NotNull HelloParser.IdentContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link HelloParser#ident}.
+	 * @param ctx the parse tree
+	 */
+	void exitIdent(@NotNull HelloParser.IdentContext ctx);
+	/**
 	 * Enter a parse tree produced by {@link HelloParser#if_stmt}.
 	 * @param ctx the parse tree
 	 */
@@ -37,6 +47,26 @@ public interface HelloListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitIf_stmt(@NotNull HelloParser.If_stmtContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link HelloParser#num}.
+	 * @param ctx the parse tree
+	 */
+	void enterNum(@NotNull HelloParser.NumContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link HelloParser#num}.
+	 * @param ctx the parse tree
+	 */
+	void exitNum(@NotNull HelloParser.NumContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link HelloParser#dot}.
+	 * @param ctx the parse tree
+	 */
+	void enterDot(@NotNull HelloParser.DotContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link HelloParser#dot}.
+	 * @param ctx the parse tree
+	 */
+	void exitDot(@NotNull HelloParser.DotContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link HelloParser#boolean_literal}.
 	 * @param ctx the parse tree
@@ -148,6 +178,16 @@ public interface HelloListener extends ParseTreeListener {
 	 */
 	void exitPackage_decl(@NotNull HelloParser.Package_declContext ctx);
 	/**
+	 * Enter a parse tree produced by {@link HelloParser#classSymbol}.
+	 * @param ctx the parse tree
+	 */
+	void enterClassSymbol(@NotNull HelloParser.ClassSymbolContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link HelloParser#classSymbol}.
+	 * @param ctx the parse tree
+	 */
+	void exitClassSymbol(@NotNull HelloParser.ClassSymbolContext ctx);
+	/**
 	 * Enter a parse tree produced by {@link HelloParser#return_stmt}.
 	 * @param ctx the parse tree
 	 */
@@ -157,16 +197,6 @@ public interface HelloListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitReturn_stmt(@NotNull HelloParser.Return_stmtContext ctx);
-	/**
-	 * Enter a parse tree produced by {@link HelloParser#idents}.
-	 * @param ctx the parse tree
-	 */
-	void enterIdents(@NotNull HelloParser.IdentsContext ctx);
-	/**
-	 * Exit a parse tree produced by {@link HelloParser#idents}.
-	 * @param ctx the parse tree
-	 */
-	void exitIdents(@NotNull HelloParser.IdentsContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link HelloParser#if_condition}.
 	 * @param ctx the parse tree
@@ -208,6 +238,16 @@ public interface HelloListener extends ParseTreeListener {
 	 */
 	void exitOp(@NotNull HelloParser.OpContext ctx);
 	/**
+	 * Enter a parse tree produced by {@link HelloParser#return_symbol}.
+	 * @param ctx the parse tree
+	 */
+	void enterReturn_symbol(@NotNull HelloParser.Return_symbolContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link HelloParser#return_symbol}.
+	 * @param ctx the parse tree
+	 */
+	void exitReturn_symbol(@NotNull HelloParser.Return_symbolContext ctx);
+	/**
 	 * Enter a parse tree produced by {@link HelloParser#expression}.
 	 * @param ctx the parse tree
 	 */
@@ -237,26 +277,6 @@ public interface HelloListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitInterface_decl(@NotNull HelloParser.Interface_declContext ctx);
-	/**
-	 * Enter a parse tree produced by {@link HelloParser#this_prefix}.
-	 * @param ctx the parse tree
-	 */
-	void enterThis_prefix(@NotNull HelloParser.This_prefixContext ctx);
-	/**
-	 * Exit a parse tree produced by {@link HelloParser#this_prefix}.
-	 * @param ctx the parse tree
-	 */
-	void exitThis_prefix(@NotNull HelloParser.This_prefixContext ctx);
-	/**
-	 * Enter a parse tree produced by {@link HelloParser#super_prefix}.
-	 * @param ctx the parse tree
-	 */
-	void enterSuper_prefix(@NotNull HelloParser.Super_prefixContext ctx);
-	/**
-	 * Exit a parse tree produced by {@link HelloParser#super_prefix}.
-	 * @param ctx the parse tree
-	 */
-	void exitSuper_prefix(@NotNull HelloParser.Super_prefixContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link HelloParser#interface_compound}.
 	 * @param ctx the parse tree
@@ -337,6 +357,16 @@ public interface HelloListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitArgs(@NotNull HelloParser.ArgsContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link HelloParser#comma}.
+	 * @param ctx the parse tree
+	 */
+	void enterComma(@NotNull HelloParser.CommaContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link HelloParser#comma}.
+	 * @param ctx the parse tree
+	 */
+	void exitComma(@NotNull HelloParser.CommaContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link HelloParser#continue_stmt}.
 	 * @param ctx the parse tree
